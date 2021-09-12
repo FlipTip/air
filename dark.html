@@ -1,0 +1,85 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>BreezoMeter AQI</title>
+
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/FlipTip/air/main/C9DBCB37-AB17-48C2-86CB-95FC5A8A8DD0.jpeg"/>
+
+<!-- The theme color for the app -->
+<meta name="theme-color" content="#0B0B19">
+<!-- The viewport meta tag -->
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<!-- Mobile-friendly iOS meta tags -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="mobile-web-app-status-bar-style" content="black">
+
+    <!-- Mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map" style="width: 100vw; height: 100vh;"></div>
+    <script>
+      var apiKey = "496bfcfb6ddd40ef831e29858c8ba7a9"; // Your BreezoMeter API key
+      var mapBoxAccessToken = "pk.eyJ1IjoiZmxpcHRpcCIsImEiOiJja3RnejJwZ3QwbjR2MnBqbzVzdDJremlmIn0.EApicpCniea7kyMg6NLhmw"; // your mapbox access token from: https://account.mapbox.com
+
+      var errorMessageBrz =
+        "Update the variable 'apiKey' with a BreezoMeter API key to see the tiles. Contact BreezoMeter if you need any help:    breezometer.com/contact-us";
+      var errorMessageMapbox =
+        "Update the variable 'mapBoxAccessToken' with a Mapbox Access Token to initialize the Mapbox SDK. You can get it from:                https://account.mapbox.com";
+
+      if (apiKey === "") alert(errorMessageBrz);
+      if (mapBoxAccessToken === "") alert(errorMessageMapbox);
+
+      var map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/dark-v10", // your stylesheet location
+        center: [8.03, 52.28], // starting position [lng, lat]
+        zoom: 9, // starting zoom
+        accessToken: mapBoxAccessToken
+      });
+
+      map.on("load", function() {
+        addRasterSource();
+        addRasterLayer();
+      });
+
+      function addRasterSource() {
+        map.addSource("breezometer-tiles", {
+          type: "raster",
+          tiles: [
+            `https://tiles.breezometer.com/v1/air-quality/breezometer-aqi/current-conditions/{z}/{x}/{y}.png?key=${apiKey}&breezometer_aqi_color=indiper`
+          ],
+          tileSize: 256,
+          maxzoom: 8
+        });
+      }
+
+      function addRasterLayer() {
+        map.addLayer(
+          {
+            id: "breezometer-tiles",
+            type: "raster",
+            source: "breezometer-tiles",
+            minzoom: 0,
+            maxzoom: 22,
+            paint: {
+              "raster-opacity": 0.6
+            }
+          },
+          "admin-1-boundary-bg"
+        );
+      }
+    </script>
+  </body>
+</html>
