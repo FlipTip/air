@@ -32,16 +32,6 @@ map.addSource('dem', {
 'type': 'raster-dem',
 'url': 'mapbox://mapbox.mapbox-terrain-dem-v1'
 });
-map.addLayer(
-{
-'id': 'hillshading',
-'source': 'dem',
-'type': 'hillshade'
-// insert below waterway-river-canal-shadow;
-// where hillshading sits in the Mapbox Outdoors style
-},
-'waterway-river-canal-shadow'
-);
 
 map.addSource('mapbox-dem', {
 'type': 'raster-dem',
