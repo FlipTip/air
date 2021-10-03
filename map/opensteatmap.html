@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Quick Start - Leaflet</title>
+	<title>Custom Icons Tutorial - Leaflet</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,32 +13,31 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
 
-	
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		#map {
+			width: 600px;
+			height: 400px;
+		}
+	</style>
+
 </head>
 <body>
 
+<div id='map'></div>
 
-
-<div id="mapid" style="width: 600px; height: 400px;"></div>
 <script>
-
-	var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+	var map = L.map('map').setView([51.5, -0.09], 13);
 
 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		maxZoom: 21,
-		tileSize: 512,
-		zoomOffset: -1
-	}).addTo(mymap);
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(map);
+
 	
-	
-
-
-
-
-
 </script>
-
-
 
 </body>
 </html>
