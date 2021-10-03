@@ -26,6 +26,7 @@
                 maxZoom: 20,
                 attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
             }).addTo(map);
+            L.tileLayer('https://tiles.breezometer.com/v1/air-quality/breezometer-aqi/current-conditions/{z}/{x}/{y}.png?key=de4fef0f7fb349f29f3f21c275018069&breezometer_aqi_color=indiper', {opacity: 0.6}).addTo(map);
         </script>
     </body>
 </html>
